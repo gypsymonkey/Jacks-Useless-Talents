@@ -47,7 +47,7 @@ struct node* removeNode(struct node* first, int item)
 	return first;
 }
 
-int isEmptyNode(struct node* first)
+int isEmptyList(struct node* first)
 {
 	return (first == NULL);
 }
@@ -63,4 +63,5 @@ void printDoublyLinkedList(struct node* first)
 
 	printf ("NULL\n");
 }
+
 #endif

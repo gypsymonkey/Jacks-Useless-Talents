@@ -15,12 +15,18 @@ Node* createDoublyLinkedList();
 */
 Node* insertNode(Node* first, int item);
 
-Node* removeNode(Node* first, int item);
-
-int isEmptyNode(Node* first);
+/*
+    Removes a node from the list and returns the first node.
+*/
+struct node* removeNode(Node* first, int item);
 
 /*
-    Print function for debugging porpose.
+    Returns if the list is empty.
+*/
+int isEmptyList(Node* first);
+
+/*
+    Print function for debugging purposes.
 */
 void printDoublyLinkedList(Node* first);
 

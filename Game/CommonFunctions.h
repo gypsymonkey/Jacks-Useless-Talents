@@ -15,4 +15,4 @@ Node* initializeHand(Stack* deck, int amount);
 /*
     Still does nothing.
 */
-void drawUnoBoard(Stack* deck, Node* hand);
+void drawUnoBoard(Stack* drawpile, Stack* discardpile, Node* hand);

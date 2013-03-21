@@ -1,5 +1,7 @@
 #include "DataStructures/DoublyLinkedList.h"
 #include "DataStructures/Stack.h"
+#include "Commands.h"
+#include <string.h>
 
 Stack* createDeck(int amount)
 {
@@ -27,14 +29,18 @@ Node* initializeHand(Stack* deck, int amount)
     return newHand;
 }
 
-void drawUnoBoard(Stack* deck, Node* hand)
+void drawUnoBoard(Stack* drawpile, Stack* discardpile, Node* hand)
 {
-    if (!isEmptyStack(deck))
+    system("cls");
+    if (!isEmptyStack(drawpile))
     {
-        printf("  _____\n/|     |\n |  U  |\n |  N  | ---------> This was supposed to be a deck.\n |  O  |\n |_____|\n/_____/\n\n\n");
+        int value = peek(discardpile);
+        printf("    _____\n  /|     |\n   |  U  |\n   |  N  |\n   |  O  |\n   |_____|\n  /_____/\n");
+        printf("  _____\n |%2d   |\n |     |\n |     |\n |     |\n |___%2d|\n\n", value, value);
     }
 
-    printDoublyLinkedList(hand);
+    if (!isEmptyList(hand))
+        printDoublyLinkedList(hand);
 
-    return;
+    printf("\n>");
 }

@@ -4,13 +4,27 @@
 
 int main()
 {
-    //printf("  _____\n/|     |\n |     |\n |     | ---------> This was supposed to be a deck.\n |     |\n |_____|\n/_____/\n");
+    char command[8];
+    int item;
 
-    Stack* deck = createDeck(52);
-    Node* hand = initializeHand(deck, 5);
+    //  Inicialization of the piles of cards and the player hands.
+    Stack* drawpile = createDeck(52);
+    Stack* discardpile = createStack();
+    push(discardpile, pop(drawpile));
 
+    Node* hand = initializeHand(drawpile, 7);
 
-    drawUnoBoard(deck, hand);
+    do
+    {
+        drawUnoBoard(drawpile, discardpile, hand);
+        scanf("%s %d", command, &item);
+
+        if (!strcmp(command, "discard"))
+        {
+            hand = discard(hand, item, discardpile);
+        }
+
+    }while(strcmp(command, "exit"));
 
     return 0;
 }
