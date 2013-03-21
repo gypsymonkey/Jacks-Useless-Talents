@@ -18,7 +18,7 @@ Node* insertNode(Node* first, int item);
 /*
     Removes a node from the list and returns the first node.
 */
-struct node* removeNode(Node* first, int item);
+Node* removeNode(Node* first, int item);
 
 /*
     Returns if the list is empty.
