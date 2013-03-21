@@ -1,50 +1,30 @@
 #include <stdio.h>
-#include "Uno.h"
-#define AMOUNT_D 52
-#define NUMBER_P 3
-#define AMOUNT_H 5
+#include "CommonFunctions.h"
 
 
 int main()
 {
     char command[8];
-    int item, i;
+    int item;
 
-    //Node* players = playerList(NUMBER_P);
-
-    //  Inicialization of the shuffled draw pile.
-    Stack* drawpile = createDeck(AMOUNT_D);
-    shuffle(drawpile);
-    //  Inicialization of the discard pile.
+    //  Inicialization of the piles of cards and the player hands.
+    Stack* drawpile = createDeck(52);
     Stack* discardpile = createStack();
     push(discardpile, pop(drawpile));
 
-    // Inicialization of the hands.
-    Node* hand = initializeHand(drawpile, AMOUNT_H, 1);
+    Node* hand = initializeHand(drawpile, 7);
 
     do
     {
         drawUnoBoard(drawpile, discardpile, hand);
-        scanf("%s", command);
-        if(!strcmp(command, "quit"))
-            break;
+        scanf("%s %d", command, &item);
 
-        scanf("%d", &item);
-
-        if(!strcmp(command, "discard"))
+        if (!strcmp(command, "discard"))
         {
             hand = discard(hand, item, discardpile);
         }
-        if(!strcmp(command, "draw"))
-        {
-            hand = draw(hand, drawpile);
-        }
-        if(!strcmp(command, "help"))
-        {
-            help();
-        }
 
-    }while(strcmp(command, "quit"));
+    }while(strcmp(command, "exit"));
 
     return 0;
 }
