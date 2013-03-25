@@ -1,50 +1,95 @@
 #include <stdio.h>
+#include <limits.h>
 #include "Uno.h"
-#define AMOUNT_D 52
-#define NUMBER_P 3
+#define AMOUNT_D 26
+#define NUMBER_O 2
 #define AMOUNT_H 5
 
 
 int main()
 {
     char command[8];
-    int item, i;
+    int playerHand = 5;
 
-    //Node* players = playerList(NUMBER_P);
 
-    //  Inicialization of the shuffled draw pile.
-    Stack* drawpile = createDeck(AMOUNT_D);
+    Stack* drawpile = createDeck(AMOUNT_D);                     ///  Initialization of the shuffled draw pile.
     shuffle(drawpile);
-    //  Inicialization of the discard pile.
-    Stack* discardpile = createStack();
+
+    Stack* discardpile = createStack();                         ///  Initialization of the discard pile.
     push(discardpile, pop(drawpile));
 
-    // Inicialization of the hands.
-    Node* hand = initializeHand(drawpile, AMOUNT_H, 1);
+    Node* hand = initializeHand(drawpile, AMOUNT_H, 1);         /// Initialization of the hands.
+
+    Player opponent[NUMBER_O];
+    initializeOpponents(opponent, NUMBER_O, drawpile, AMOUNT_H);
+
+    strcpy(opponent[0].name, "Tommy");
+    strcpy(opponent[1].name, "Harry");
+
+    int smallestHand = INT_MAX;
 
     do
     {
-        drawUnoBoard(drawpile, discardpile, hand);
-        scanf("%s", command);
-        if(!strcmp(command, "quit"))
-            break;
-
-        scanf("%d", &item);
-
-        if(!strcmp(command, "discard"))
+        do
         {
-            hand = discard(hand, item, discardpile);
-        }
-        if(!strcmp(command, "draw"))
+            drawUnoBoard(drawpile, discardpile, hand, opponent, NUMBER_O);
+            Card c = peek(discardpile);
+
+            scanf("%s", command);
+
+            if(!strcmp(command, "discard"))
+            {
+                Card card;
+
+                scanf("%d %c", &card.value, &card.color);
+                hand = discard(hand, card, discardpile);
+                //if(--playerHand < smallestHand)
+                //    smallestHand = playerHand;
+                break;
+            }
+            if(!strcmp(command, "draw"))
+            {
+                hand = draw(hand, drawpile);
+                break;
+            }
+            if(!strcmp(command, "help"))
+            {
+                help();
+            }
+            if(!strcmp(command, "print"))
+            {
+                char pile[12];
+                scanf("%s", pile);
+
+                if(!strcmp(pile, "draw"))
+                {
+                    printStack(drawpile);
+                }
+                if(!strcmp(pile, "discard"))
+                    printStack(discardpile);
+            }
+
+        }while(strcmp(command, "quit"));
+
+        drawUnoBoard(drawpile, discardpile, hand, opponent, NUMBER_O);
+        printf("\n");
+
+        if (strcmp(command, "quit"))
+            opponentTurn(opponent, NUMBER_O, drawpile, discardpile);
+
+
+        //printf("%d", smallestHand);
+        //getchar();
+        //getchar();
+
+        if (smallestHand == 0)
         {
-            hand = draw(hand, drawpile);
-        }
-        if(!strcmp(command, "help"))
-        {
-            help();
+            printf("Congratulations, you won!\n");
+            strcpy(command, "quit");
         }
 
-    }while(strcmp(command, "quit"));
+
+    }while (endGame(command));
 
     return 0;
 }

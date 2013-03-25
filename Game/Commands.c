@@ -1,14 +1,32 @@
 #include "DataStructures/DoublyLinkedList.h"
 #include "DataStructures/Stack.h"
+#include <stdlib.h>
 
-Node* discard(Node* hand, int item, Stack* discardpile)
+Node* discard(Node* hand, Card card, Stack* discardpile)
 {
-    push(discardpile, item);
-    return removeNode(hand, item);
+    Card topCard = peek(discardpile);
+    //printf("%d%c", card.value, card.color);
+
+
+    if(card.value == topCard.value || card.color == topCard.color)
+    {
+        printf("Hooray!\n");
+
+    }
+    //getch();
+
+    push(discardpile, card);
+    return removeNode(hand, card);
 }
 
 Node* draw(Node* hand, Stack* drawpile)
 {
+    if (isEmptyStack(drawpile))
+    {
+        printf ("There's no more cards left on the deck :(\n");
+        return NULL;
+    }
+
     return insertNode(hand, pop(drawpile));
 }
 
@@ -30,6 +48,4 @@ void help()
 
     getchar();
     getchar();
-    getchar();
-
 }

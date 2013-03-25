@@ -2,9 +2,16 @@
 #include <stdlib.h>
 #ifndef DOUBLY_LINKED_LIST_C
 #define DOUBLY_LINKED_LIST_C
+
+struct card
+{
+    int value;
+    int color;
+};
+
 struct node
 {
-	int item;
+	struct card item;
 	struct node* next;
 	struct node* previous;
 };
@@ -14,7 +21,7 @@ struct node* createDoublyLinkedList()
 	return NULL;
 }
 
-struct node* insertNode(struct node* first, int item)
+struct node* insertNode(struct node* first, struct card item)
 {
 	struct node* newNode = (struct node*)malloc (sizeof(struct node));
 	newNode->next = first;
@@ -27,17 +34,19 @@ struct node* insertNode(struct node* first, int item)
 	return newNode;
 }
 
-struct node* removeNode(struct node* first, int item)
+struct node* removeNode(struct node* first, struct card item)
 {
 	struct node* current = first;
 
-	while (current != NULL && current->item != item)
+
+	while (current != NULL && current->item.value != item.value && current->item.color != item.color)
 		current = current->next;
 
 	if (first  == current)
 		first = current->next;
 	else
 		current->previous->next = current->next;
+
 
 	if (current->next != NULL)
 		current->next->previous = current->previous;
@@ -57,7 +66,7 @@ void printDoublyLinkedList(struct node* first)
 	struct node* current = first;
 	while (current != NULL)
 	{
-		printf ("[%d] <=> ", current->item);
+		printf ("[%d%c] <=> ", current->item.value, current->item.color);
 		current = current->next;
 	}
 
