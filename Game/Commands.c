@@ -32,7 +32,15 @@ Node* draw(Node* hand, Stack* drawpile)
 
 void instructions()
 {
-    /* Show game instructions. */
+    printf("######################################################################\n");
+    printf("#   Instructions:                                                    #\n");
+    printf("#                                                                    #\n");
+    printf("#       This game is not working properly, you just have to type the #\n");
+    printf("#   commands randomly. You're probaply gonna win.                    #\n");
+    printf("#                                                  Try to have fun.  #\n");
+    printf("######################################################################\n");
+
+    getch();
 }
 
 void help()
@@ -42,10 +50,9 @@ void help()
     printf("#                                                                   #\n");
     printf("#   - draw                  Draws a card.                           #\n");
     printf("#   - discard [card_id]     Discards a card from your hand          #\n");
-    printf("#   - instructions          Show the game rules. (not implemented)  #\n");
+    printf("#   - instructions          Shows the game rules.                   #\n");
     printf("#   - quit                  Guess what.                             #\n");
     printf("#####################################################################\n");
 
-    getchar();
-    getchar();
+    getch();
 }

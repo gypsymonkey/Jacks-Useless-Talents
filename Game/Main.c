@@ -1,14 +1,14 @@
 #include <stdio.h>
 #include <limits.h>
 #include "Uno.h"
-#define AMOUNT_D 26
-#define NUMBER_O 2
-#define AMOUNT_H 5
+#define AMOUNT_D 26             /// Amount of cards on the deck.
+#define NUMBER_O 1              /// Amount of opponents doing stupid things.
+#define AMOUNT_H 5              /// Initial amount of cards on the players hands.
 
 
 int main()
 {
-    char command[8];
+    char command[15];
     int playerHand = 5;
 
 
@@ -24,7 +24,7 @@ int main()
     initializeOpponents(opponent, NUMBER_O, drawpile, AMOUNT_H);
 
     strcpy(opponent[0].name, "Tommy");
-    strcpy(opponent[1].name, "Harry");
+    //strcpy(opponent[1].name, "Harry");
 
     int smallestHand = INT_MAX;
 
@@ -32,10 +32,12 @@ int main()
     {
         do
         {
-            drawUnoBoard(drawpile, discardpile, hand, opponent, NUMBER_O);
+            drawUnoBoard(drawpile, discardpile, hand, opponent, NUMBER_O);      ///This function refresh the screen every time it changes.
             Card c = peek(discardpile);
 
             scanf("%s", command);
+
+            /// Commands
 
             if(!strcmp(command, "discard"))
             {
@@ -43,8 +45,8 @@ int main()
 
                 scanf("%d %c", &card.value, &card.color);
                 hand = discard(hand, card, discardpile);
-                //if(--playerHand < smallestHand)
-                //    smallestHand = playerHand;
+                if(--playerHand < smallestHand)
+                    smallestHand = playerHand;
                 break;
             }
             if(!strcmp(command, "draw"))
@@ -56,6 +58,14 @@ int main()
             {
                 help();
             }
+            if(!strcmp(command, "instructions"))
+            {
+                instructions();
+            }
+
+            /**
+                The commands below were used for debug and stuff.
+            */
             if(!strcmp(command, "print"))
             {
                 char pile[12];
@@ -75,19 +85,16 @@ int main()
         printf("\n");
 
         if (strcmp(command, "quit"))
-            opponentTurn(opponent, NUMBER_O, drawpile, discardpile);
-
-
-        //printf("%d", smallestHand);
-        //getchar();
-        //getchar();
+            opponentTurn(opponent, NUMBER_O, drawpile, discardpile);             /// The opponent turn starts here if the command quit is not typed.
 
         if (smallestHand == 0)
         {
-            printf("Congratulations, you won!\n");
+            drawUnoBoard(drawpile, discardpile, hand, opponent, NUMBER_O);
+            printf("\n#############################################\n");
+            printf("#   Congratulations, you are the winner!    #\n");
+            printf("#############################################\n");
             strcpy(command, "quit");
         }
-
 
     }while (endGame(command));
 

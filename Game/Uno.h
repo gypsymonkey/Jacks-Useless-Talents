@@ -2,6 +2,10 @@
 #include "DataStructures/DoublyLinkedList.h"
 #include "DataStructures/Stack.h"
 
+/**
+    The Player type is only used with opponents and has three members. An integer storing the amount of cards
+    on his hand, his name and a pointer to his hand.
+*/
 typedef struct player Player;
 
 /**

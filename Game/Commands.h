@@ -11,7 +11,7 @@ Node* discard(Node* hand, Card card, Stack* discardpile);
 Node* draw(Node* hand, Stack* drawpile);
 
 /**
-    Barely exists.
+    Show the instructions.
 */
 void instructions();
 

@@ -95,46 +95,51 @@ void drawUnoBoard(Stack* drawpile, Stack* discardpile, Node* hand, struct player
     system("cls");
     int i;
 
-    printf("Type help for a list of valid commands.\n");
+    printf("#############################################\n");
+    printf("#   Type help for a list of valid commands. #\n");
+    printf("#############################################\n");
 
     for (i = 0; i < number; ++i)
     {
         printf("%s\n", opponent[i].name);
         printf("%d card(s).\n", opponent[i].amount_h);
         printHand(opponent[i].hand);
-        printDoublyLinkedList(opponent[i].hand);
+        //printDoublyLinkedList(opponent[i].hand);
 
         printf("\n");
     }
 
+    printf("#############################################\n");
     if (!isEmptyStack(drawpile))
     {
-        printf("    _____ \n");
-        printf("  /|     |\n");
-        printf("  ||  U  |\n");
-        printf("  ||  N  |\n");
-        printf("  ||  O  |\n");
-        printf("  ||_____|\n");
-        printf("  /-----/ \n");
+        printf("#    _____                                  #\n");
+        printf("#  /|     |                                 #\n");
+        printf("#  ||  U  |                                 #\n");
+        printf("#  ||  N  |                                 #\n");
+        printf("#  ||  O  |                                 #\n");
+        printf("#  ||_____|                                 #\n");
+        printf("#  /-----/                                  #\n");
+
     }
 
     if (!isEmptyStack(discardpile))
     {
         Card topcard = peek(discardpile);;
 
-        printf("  _____\n");
-        printf(" |%2d   |\n", topcard.value);
-        printf(" |     |\n");
-        printf(" |  %c  |\n", topcard.color);
-        printf(" |     |\n");
-        printf(" |___%2d|\n", topcard.value);
-        printf("\n");
+        printf("#  _____                                    #\n");
+        printf("# |%2d   |                                   #\n", topcard.value);
+        printf("# |     |                                   #\n");
+        printf("# |  %c  |                                   #\n", topcard.color);
+        printf("# |     |                                   #\n");
+        printf("# |___%2d|                                   #\n", topcard.value);
+        printf("#                                           #\n");
+        printf("#############################################\n");
     }
 
 
     if (!isEmptyList(hand))
         printHand(hand);
-    printDoublyLinkedList(hand);
+    //printDoublyLinkedList(hand);
     printf(">");
 }
 
@@ -148,6 +153,7 @@ void opponentTurn(struct player opponent[], int number, Stack* drawpile, Stack* 
             ++opponent[i].amount_h;
 
             printf ("%s has drawn a card.\n", opponent[i].name);
+            getch();
     }
 }
 

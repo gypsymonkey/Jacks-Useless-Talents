@@ -1,7 +1,14 @@
+/***********
+    Created by José Leandro.
+************/
+
 #include "Stack.c"
 #ifndef STACK_H
 #define STACK_H
 
+/**
+    The type Stack has two members. An integer storing the stack size and an array with the items.
+*/
 typedef struct stack Stack;
 
 /**

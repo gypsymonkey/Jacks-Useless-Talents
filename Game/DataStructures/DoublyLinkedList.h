@@ -1,10 +1,22 @@
+/***********
+    Created by José Leandro.
+************/
+
 #ifndef DOUBLY_LINKED_LIST_H
 #define DOUBLY_LINKED_LIST_H
 
 #include "DoublyLinkedList.c"
 
+/**
+    The type Card has two members. An integer representing the value (0~9) and a char representing
+    the color of the card (R, B, Y, G or S).
+*/
 typedef struct card Card;
 
+/**
+    The type Node has three members. A struct card named item and two pointers linking the node tho its
+    next ann previous node, respectively.
+*/
 typedef struct node Node;
 
 /**
